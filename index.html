@@ -1,0 +1,160 @@
+<html lang="en" class="h-full w-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Kingdom's Railway Network</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <script src="tailwind.js"></script>
+  </head>
+  <body
+    class="flex h-full w-full bg-secondary items-center justify-center text-white text-lg font-bold uppercase"
+  >
+    <div class="p-2 w-full md:w-auto">
+      <form id="introScreen" class="flex flex-col md:w-[500px] gap-5">
+        <img src="images/logo.png" alt="Logo" />
+        <input
+          id="nameInput"
+          type="text"
+          class="rounded-xl border-[3px] border-primary focus:outline-none w-full p-2 px-3 text-text placeholder:text-primary/80 uppercase"
+          placeholder="WHO ARE YOU?"
+        />
+        <div class="flex gap-3">
+          <div
+            class="bg-white rounded-xl border-[3px] border-green-dark flex flex-col items-center justify-center p-2 text-green-dark grow gap-2"
+          >
+            Set your difficulty
+            <div class="flex w-full gap-3">
+              <div class="flex flex-col items-center w-full text-md">
+                <button
+                  class="rounded-xl border-[3px] border-green-dark p-2 w-full text-lg hover:bg-green-light hover:text-neutral-500 aria-selected:bg-green-light aria-selected:text-neutral-500"
+                  id="easyBtn"
+                  aria-selected="true"
+                  type="button"
+                >
+                  5x5
+                </button>
+                Easy
+              </div>
+              <div class="flex flex-col items-center w-full text-md">
+                <button
+                  class="rounded-lg border-[3px] border-green-dark p-2 w-full text-lg hover:bg-green-light hover:text-neutral-500 aria-selected:bg-green-light aria-selected:text-neutral-500"
+                  id="hardBtn"
+                  type="button"
+                >
+                  7x7
+                </button>
+                Hard
+              </div>
+            </div>
+          </div>
+          <div class="flex flex-col gap-3">
+            <button
+              class="border-[3px] border-green-dark bg-green-light grow text-neutral-500 rounded-lg uppercase text-lg px-4 hover:opacity-50"
+              id="rulesBtn"
+              type="button"
+            >
+              Rules
+            </button>
+            <button
+              class="border-[3px] border-neutral-500 bg-neutral-400 grow text-white rounded-xl uppercase text-lg px-4 hover:opacity-50"
+              id="startGameBtn"
+              type="submit"
+            >
+              Start Game
+            </button>
+          </div>
+        </div>
+      </form>
+      <div
+        id="gameScreen"
+        class="hidden flex flex-col w-full md:w-[800px] items-center md:flex-row gap-5"
+      >
+        <div class="flex flex-col items-center gap-4">
+          <img src="images/logo.png" alt="Logo" class="w-[300px]" />
+          <div
+            class="rounded-xl border-[3px] border-primary bg-white p-2 text-neutral-500 text-center flex md:flex-col gap-4 md:gap-1 shadow-lg"
+          >
+            <div>
+              <span>Route Designer:</span>
+              <h1 class="text-3xl text-neutral-600 -m-1" id="routeDesigner">
+                Player 1
+              </h1>
+            </div>
+            <div class="w-[2px] md:w-full md:h-[2px] bg-primary/50"></div>
+            <div>
+              <span>Elapsed time:</span>
+              <h1 class="text-3xl text-neutral-600 -m-1" id="time">00:00</h1>
+            </div>
+          </div>
+        </div>
+        <div
+          class="rounded-3xl w-full h-full border-[15px] border-primary-dark bg-white shadow-lg"
+        >
+          <div id="gameGrid" class="bg-white w-full h-full grid"></div>
+        </div>
+      </div>
+      <div
+        id="rulesScreen"
+        class="closable hidden opacity-0 fixed top-0 left-0 w-full h-full bg-black/50 z-10 flex items-center justify-center px-2"
+      >
+        <div
+          class="bg-white rounded-xl p-5 text-neutral-700 flex flex-col items-center relative"
+        >
+          <h2 class="text-2xl text-center">Rules</h2>
+          <h3 class="text-xl mt-5">
+            The goal of the game is to create a railway network that is
+            continuous.
+          </h3>
+          <div class="flex flex-col gap-1 mt-3 w-full">
+            <h4>
+              1. All blocks except water (oasis) must be converted to rails.
+            </h4>
+            <h4>
+              2. The railway network must be continuous - all rails must connect
+              to each other.
+            </h4>
+            <h4>3. When all blocks are connected with rails, you win!</h4>
+          </div>
+        </div>
+      </div>
+      <div
+        id="leaderboardScreen"
+        class="hidden opacity-0 fixed top-0 left-0 w-full h-full bg-black/50 z-10 flex items-center justify-center px-2"
+      >
+        <div
+          class="bg-white rounded-xl p-5 text-neutral-700 flex flex-col items-center"
+        >
+          <h2 class="text-2xl text-center"></h2>
+          <h3 class="text-xl mt-5">Leaderboard Results</h3>
+          <div
+            id="leaderboardResults"
+            class="flex flex-col gap-1 mt-3 w-full"
+          ></div>
+          <button
+            id="playAgainBtn"
+            class="mt-5 rounded-xl border-[3px] bg-green-light border-green-dark text-neutral-500 px-5 py-2 hover:opacity-50"
+          >
+            Play Again
+          </button>
+        </div>
+      </div>
+      <div
+        class="mt-10 fixed left-0 w-full h-[100px] bg-[url('images/rail.png')] bg-center bg-50% bg-repeat-x"
+      ></div>
+      <button
+        id="showLeaderboardBtn"
+        class="fixed bottom-5 left-1/2 -translate-x-1/2 rounded-xl border-[3px] bg-green-light border-green-dark text-neutral-500 px-5 py-2 hover:opacity-50 text-sm"
+      >
+        Show Leaderboard
+      </button>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
